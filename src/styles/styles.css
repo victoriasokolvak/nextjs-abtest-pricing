@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .line-through-custom {
+    text-decoration: line-through;
+    text-decoration-color: #FF0000;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translate(0);
+  }
+  to {
+    transform: translate(-100%);
+  }
+}
+
+@media (max-width: 1024px) {
+  .marquee-container {
+    display: flex;
+    white-space: nowrap;
+    animation: marquee 10s infinite linear;
+  }
+}
+
+@layer components {
+  .title-mobile {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 36px;
+    letter-spacing: -0.25px;
+    margin-top: 40px;
+  }
+
+  .title-desktop {
+    font-size: 45px;
+    font-weight: 600;
+    line-height: 52px;
+    letter-spacing: -0.25px;
+    margin-top: 118px;
+  }
+
+  .button-text-mobile {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.15px;
+    padding: 16px 96px;
+  }
+
+  .price-text {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.1px;
+}
+
+  .card-title {
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0.15px;
+  }
+
+  .button-text-desktop {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0.15px;
+    padding: 16px 102px;
+  }
+
+  .timer-text-mobile {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+  }
+
+  .custom-tag-text {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+}
+
+  .button-gradient {
+    @apply bg-gradient-to-r from-custom-green to-custom-blue transition-colors;
+  }
+
+  .button-gradient:hover {
+    @apply from-custom-hover-green to-custom-hover-blue;
+  }
+
+  .margin-bottom-60 {
+    margin-bottom: 60px;
+  }
+
+  .rounded-10 {
+    border-radius: 10px;
+  }
+
+  .rounded-20 {
+    border-radius: 20px;
+  }
+}
