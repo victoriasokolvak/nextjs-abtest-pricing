@@ -22,7 +22,7 @@ To run the project locally, follow these steps:
 2. Navigate to the project directory:
    
    ```bash
-   cd your-repository
+   cd ab-test-pricing
 
 3. Install dependencies:
 
