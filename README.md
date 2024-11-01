@@ -18,19 +18,23 @@ To run the project locally, follow these steps:
 
    ```bash
    git clone https://github.com/victoriasokolvak/nextjs-abtest-pricing.git
-   
-2. Navigate to the project directory:
 
-  cd your-repository
+2. Navigate to the project directory:
+   
+   ```bash
+   cd your-repository
 
 3. Install dependencies:
 
-  npm install
+   ```bash
+   npm install
 
-4. Start the local server:
+5. Start the local server:
+   
+   ```bash
+   npm run dev
 
-  npm run dev
+6. Open your browser and go to the following address:
 
-5. Open your browser and go to the following address:
-
-  http://localhost:3000
+   ```bash
+   http://localhost:3000
