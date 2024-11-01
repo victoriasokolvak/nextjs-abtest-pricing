@@ -54,34 +54,34 @@ const PricingPage = () => {
   };
 
   return (
-    <div className="w-full min-h-screen p-3 bg-gradient-pattern overflow-hidden">
-      <h1 className="title-mobile lg:title-desktop text-center mb-4 text-title-color">
+    <div className='w-full min-h-screen p-3 bg-gradient-pattern overflow-hidden'>
+      <h1 className='headline-medium lg:headline-large text-center mb-4 text-title-color'>
         Choose Your Plan:
       </h1>
 
-      <div className="marquee-container">
-        <div className="flex justify-center gap-6 mb-10 lg:margin-bottom-60">
+      <div className='marquee-container'>
+        <div className='flex justify-center gap-6 mb-10 lg:mb-[60px]'>
           {features.map((feature, index) => (
             <Feature key={index} icon={feature.icon} name={feature.name}/>
           ))}
         </div>
       </div>
 
-      <div className="lg:hidden margin-bottom-60">
+      <div className='lg:hidden mb-[60px]'>
         <CountdownTimer 
           minutes={minutes} 
           seconds={seconds} 
-          option="mobile"
+          option='mobile'
         />
       </div>
 
       <div 
-        className="
+        className='
           grid grid-cols-1 gap-6 mb-6 md:mb-4 justify-center
           lg:grid-cols-[repeat(3,minmax(0,363px))]
           lg:[&>*:nth-child(1)]:order-3
           lg:[&>*:nth-child(2)]:order-1
-        "
+        '
       >
         {plans.map((plan) => (
             <PlanCard
@@ -100,25 +100,25 @@ const PricingPage = () => {
           ))}
       </div>
 
-      <div className="text-center">
+      <div className='text-center'>
         <button
           onClick={handleGetStartedClick}
-          className="
-            button-text-mobile lg:button-text-desktop 
+          className='
+            text-primary-medium lg:text-secondary-large 
             text-white rounded-full 
             button-gradient button-gradient:hover
-          "
+          '
         >
           Get Started
         </button>
         
-        <p className="mt-6 text-sm text-custom-gray">
+        <p className='mt-6 text-sm text-custom-gray'>
           Automatic renewal of $29.99 per month.
           <br />
           You may cancel by{' '}
           <a 
-            href="mailto:support@justdono.ai"
-            className="text-custom-gray underline"
+            href='mailto:support@justdono.ai'
+            className='text-custom-gray underline'
           >
             support@justdono.ai
           </a>
