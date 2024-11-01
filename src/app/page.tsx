@@ -1,101 +1,132 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import '../styles/styles.css';
+
+import React, { useEffect, useState } from 'react';
+import Feature from '@/components/Feature';
+import plans from '@/data/plans';
+import features from '@/data/features';
+import PlanCard from '@/components/PlanCard';
+import CountdownTimer from '@/components/CountdownTimer';
+
+const PricingPage = () => {
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(0);
+  const [selectedPlanId, setSelectedPlanId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const target = new Date(Date.now() + 24 * 60 * 1000 + 30 * 1000);
+
+    const interval = setInterval(() => {
+      const now = new Date;
+      const difference = target.getTime() - now.getTime();
+
+      if (difference <= 0) {
+        setMinutes(0);
+        setSeconds(0);
+        clearInterval(interval);
+        return;
+      }
+
+      const minute = Math.floor(difference % (1000 * 60 * 60) / (1000 * 60));
+      setMinutes(minute);
+
+      const second = Math.floor(difference % (1000 * 60) / 1000);
+      setSeconds(second);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const handlePlanSelect = (id: string) => {
+    setSelectedPlanId(id);
+  };
+
+  const handleGetStartedClick = () => {
+    if (selectedPlanId !== null) {
+      const selectedPlan = plans.find(plan => plan.id === selectedPlanId);
+      if (selectedPlan) {
+        console.log(`Selected Plan ID: ${selectedPlan.id}, Name: ${selectedPlan.name}`);
+      }
+    } else {
+      console.log("No plan selected.");
+    }
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="w-full min-h-screen p-3 bg-gradient-pattern overflow-hidden">
+      <h1 className="title-mobile lg:title-desktop text-center mb-4 text-title-color">
+        Choose Your Plan:
+      </h1>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      <div className="marquee-container">
+        <div className="flex justify-center gap-6 mb-10 lg:margin-bottom-60">
+          {features.map((feature, index) => (
+            <Feature key={index} icon={feature.icon} name={feature.name}/>
+          ))}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      </div>
+
+      <div className="lg:hidden margin-bottom-60">
+        <CountdownTimer 
+          minutes={minutes} 
+          seconds={seconds} 
+          option="mobile"
+        />
+      </div>
+
+      <div 
+        className="
+          grid grid-cols-1 gap-6 mb-6 md:mb-4 justify-center
+          lg:grid-cols-[repeat(3,minmax(0,363px))]
+          lg:[&>*:nth-child(1)]:order-3
+          lg:[&>*:nth-child(2)]:order-1
+        "
+      >
+        {plans.map((plan) => (
+            <PlanCard
+              key={plan.id}
+              id={plan.id}
+              title={plan.title}
+              tag={plan.tag}
+              price={plan.price}
+              originalPrice={plan.originalPrice}
+              regularity={plan.regularity}
+              isSelected={selectedPlanId === plan.id}
+              onSelect={handlePlanSelect}
+              minutes={minutes}
+              seconds={seconds}
+            />
+          ))}
+      </div>
+
+      <div className="text-center">
+        <button
+          onClick={handleGetStartedClick}
+          className="
+            button-text-mobile lg:button-text-desktop 
+            text-white rounded-full 
+            button-gradient button-gradient:hover
+          "
         >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          Get Started
+        </button>
+        
+        <p className="mt-6 text-sm text-custom-gray">
+          Automatic renewal of $29.99 per month.
+          <br />
+          You may cancel by{' '}
+          <a 
+            href="mailto:support@justdono.ai"
+            className="text-custom-gray underline"
+          >
+            support@justdono.ai
+          </a>
+          . Our goal is customer satisfaction
+        </p>
+      </div>
     </div>
   );
-}
+};
+
+export default PricingPage;
