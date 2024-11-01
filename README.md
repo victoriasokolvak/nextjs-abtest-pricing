@@ -22,7 +22,7 @@ To run the project locally, follow these steps:
 2. Navigate to the project directory or if your terminal automatically navigates to the project directory after cloning, you can switch directly to the required branch without using the cd command. For example, you can switch to the develop branch:
    
    ```bash
-   cd nextjs-abtest-pricing or git checkout develop
+   cd nextjs-abtest-pricing or git checkout -b develop
 
 3. Install dependencies:
 
