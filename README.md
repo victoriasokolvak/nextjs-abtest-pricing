@@ -1,6 +1,6 @@
 # Pricing Page
 
-The Pricing Page is designed to provide users with clear and concise information about the various subscription plans and pricing options available for our service.
+The Pricing Page is designed to provide users with clear and concise information about the various subscription plans and available pricing options.
 
 ## Technologies
 
@@ -19,7 +19,7 @@ To run the project locally, follow these steps:
    ```bash
    git clone https://github.com/victoriasokolvak/nextjs-abtest-pricing.git
 
-2. Navigate to the project directory or if your terminal automatically navigates to the project directory after cloning, you can switch directly to the required branch without needing the cd command. For example, you can switch to the develop branch:
+2. Navigate to the project directory or if your terminal automatically navigates to the project directory after cloning, you can switch directly to the required branch without using the cd command. For example, you can switch to the develop branch:
    
    ```bash
    cd nextjs-abtest-pricing or git checkout develop
