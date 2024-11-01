@@ -1,5 +1,3 @@
-'use client';
-
 import '../styles/styles.css';
 
 import React from 'react';
@@ -34,7 +32,7 @@ const PlanCard: React.FC<PlanCardProps> = ({
   return (
     <div
       onClick={() => onSelect(id)}
-      className={`relative border-4 rounded-20 cursor-pointer bg-white shadow-sm w-full box-border, 
+      className={`relative border-4 rounded-[20px] cursor-pointer bg-white shadow-sm w-full box-border, 
         ${isSelected 
           ? 'border-custom-green' 
           : 'border-unactive-border'}`
@@ -42,14 +40,14 @@ const PlanCard: React.FC<PlanCardProps> = ({
     >
       {tag === 'Save 50%' && (
         <span
-          className="
+          className='
             absolute -top-8 right-8 
             px-6 py-[10px] 
-            button-text-desktop
+            text-secondary-large
             text-center rounded-full 
             rotate-3 lg:rotate-6 
-            bg-yellow-400 text-gray-800
-          "
+            bg-custom-yellow text-title-color
+          '
         >
           🚀 Best value
         </span>
@@ -57,30 +55,30 @@ const PlanCard: React.FC<PlanCardProps> = ({
       
       {tag && (
         <span
-          className="
+          className='
             absolute -top-4 left-11
             px-[10px] py-1
-            custom-tag-text text-center
+            text-info text-center
             rounded-full
             bg-custom-green text-white
-          "
+          '
         >
           {tag}
         </span>
       )}
       
-      <div className="hidden lg:block">
+      <div className='hidden lg:block'>
         <CountdownTimer 
           minutes={minutes} 
           seconds={seconds} 
-          option="desktop" 
+          option='desktop' 
         />
         <div className='relative h-2'>
           <div className='absolute -top-3 right-7 bg-custom-dark w-4 h-4 rotate-45'></div>
         </div>
       </div>
 
-      <div className="flex items-start gap-3">
+      <div className='flex items-start gap-3'>
         <div
           className={`w-5 h-5 rounded-full border-2 mt-11 lg:mt-[26px] ml-3 flex items-center justify-center
             ${isSelected 
@@ -94,20 +92,20 @@ const PlanCard: React.FC<PlanCardProps> = ({
           )}
         </div>
 
-        <div className="pt-11 pb-8 lg:pt-[26px]">
-          <h3 className="text-custom-check card-title text-left">
+        <div className='pt-11 pb-8 lg:pt-[26px]'>
+          <h3 className='text-custom-check text-primary-small text-left'>
             {title}
           </h3>
         </div>
 
-        <div className="flex flex-col items-end my-auto lg:mt-1 ml-auto pr-4 gap-0.5">
-          <span className="text-title-color custom-tag-text line-through-custom">
+        <div className='flex flex-col items-end my-auto lg:mt-1 ml-auto pr-4 gap-0.5'>
+          <span className='text-title-color text-info line-through-custom'>
             ${originalPrice?.toFixed(2)}
           </span>
-          <span className="price-text text-custom-blue">
+          <span className='text-primary-large text-custom-blue'>
             ${price.toFixed(2)}
           </span>
-          <span className="custom-tag-text text-title-color opacity-80">
+          <span className='text-info text-title-color opacity-80'>
             {regularity}
           </span>
         </div>
