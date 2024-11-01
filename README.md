@@ -22,7 +22,7 @@ To run the project locally, follow these steps:
 2. Navigate to the project directory:
    
    ```bash
-   cd ab-test-pricing
+   cd nextjs-abtest-pricing
 
 3. Install dependencies:
 
