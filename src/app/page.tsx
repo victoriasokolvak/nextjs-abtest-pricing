@@ -13,8 +13,20 @@ const PricingPage = () => {
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [selectedPlanId, setSelectedPlanId] = useState<string | null>(null);
+  const [isTimerVisible, setIsTimerVisible] = useState(true);
 
   useEffect(() => {
+    const savedTimerState = localStorage.getItem('timerState');
+    if (savedTimerState) {
+      const { minutes: savedMinutes, seconds: savedSeconds } = JSON.parse(savedTimerState);
+      if (savedMinutes === 0 && savedSeconds === 0) {
+        setIsTimerVisible(false);
+      } else {
+        setMinutes(savedMinutes);
+        setSeconds(savedSeconds);
+      }
+    }
+
     const target = new Date(Date.now() + 24 * 60 * 1000 + 30 * 1000);
 
     const interval = setInterval(() => {
@@ -24,7 +36,9 @@ const PricingPage = () => {
       if (difference <= 0) {
         setMinutes(0);
         setSeconds(0);
+        setIsTimerVisible(false);
         clearInterval(interval);
+        localStorage.setItem('timerState', JSON.stringify({ minutes: 0, seconds: 0 }));
         return;
       }
 
@@ -33,8 +47,10 @@ const PricingPage = () => {
 
       const second = Math.floor(difference % (1000 * 60) / 1000);
       setSeconds(second);
-    }, 1000);
 
+    localStorage.setItem('timerState', JSON.stringify({ minutes: minute, seconds: second })); // Зберігати кожну зміну таймера
+    }, 1000);
+  
     return () => clearInterval(interval);
   }, []);
 
@@ -59,21 +75,23 @@ const PricingPage = () => {
         Choose Your Plan:
       </h1>
 
-      <div className='marquee-container'>
-        <div className='flex justify-center gap-6 mb-10 lg:mb-[60px]'>
+      <div className={`marquee-container ${!isTimerVisible ? 'mb-[80px]' : 'mb-10 lg:mb-[60px]'}`}>
+        <div className='flex justify-center gap-6'>
           {features.map((feature, index) => (
             <Feature key={index} icon={feature.icon} name={feature.name}/>
           ))}
         </div>
       </div>
 
-      <div className='lg:hidden mb-[60px]'>
-        <CountdownTimer 
-          minutes={minutes} 
-          seconds={seconds} 
-          option='mobile'
-        />
-      </div>
+      {isTimerVisible && (
+        <div className='lg:hidden mb-[60px]'>
+          <CountdownTimer 
+            minutes={minutes} 
+            seconds={seconds} 
+            option='mobile'
+          />
+        </div>
+      )}
 
       <div 
         className='
@@ -96,6 +114,7 @@ const PricingPage = () => {
               onSelect={handlePlanSelect}
               minutes={minutes}
               seconds={seconds}
+              isTimerVisible={isTimerVisible}
             />
           ))}
       </div>
