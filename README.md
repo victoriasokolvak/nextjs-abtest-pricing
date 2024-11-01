@@ -1,6 +1,6 @@
-# Project Title
+# Pricing Page
 
-A brief description of your project. For example, "This project is a task management web application built with Next.js and Tailwind CSS."
+The Pricing Page is designed to provide users with clear and concise information about the various subscription plans and pricing options available for our service.
 
 ## Technologies
 
