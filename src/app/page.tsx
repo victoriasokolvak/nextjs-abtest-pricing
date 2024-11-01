@@ -48,7 +48,7 @@ const PricingPage = () => {
       const second = Math.floor(difference % (1000 * 60) / 1000);
       setSeconds(second);
 
-    localStorage.setItem('timerState', JSON.stringify({ minutes: minute, seconds: second })); // Зберігати кожну зміну таймера
+    localStorage.setItem('timerState', JSON.stringify({ minutes: minute, seconds: second }));
     }, 1000);
   
     return () => clearInterval(interval);
