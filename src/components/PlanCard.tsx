@@ -15,6 +15,7 @@ interface PlanCardProps {
   onSelect: (id: string) => void;
   minutes: number;
   seconds: number;
+  isTimerVisible: boolean;
 }
 
 const PlanCard: React.FC<PlanCardProps> = ({
@@ -27,7 +28,8 @@ const PlanCard: React.FC<PlanCardProps> = ({
   isSelected,
   onSelect,
   minutes,
-  seconds
+  seconds,
+  isTimerVisible
 }) => {
   return (
     <div
@@ -67,18 +69,20 @@ const PlanCard: React.FC<PlanCardProps> = ({
         </span>
       )}
       
-      <div className='hidden lg:block'>
-        <CountdownTimer 
-          minutes={minutes} 
-          seconds={seconds} 
-          option='desktop' 
-        />
-        <div className='relative h-2'>
-          <div className='absolute -top-3 right-7 bg-custom-dark w-4 h-4 rotate-45'></div>
+      {isTimerVisible && (
+        <div className='hidden lg:block'>
+          <CountdownTimer 
+            minutes={minutes} 
+            seconds={seconds} 
+            option='desktop' 
+          />
+          <div className='relative h-2'>
+            <div className='absolute -top-3 right-7 bg-custom-dark w-4 h-4 rotate-45'></div>
+          </div>
         </div>
-      </div>
+      )}
 
-      <div className='flex items-start gap-3'>
+      <div className={`flex items-start gap-3 ${isTimerVisible ? '' : 'lg:pt-4'}`}>
         <div
           className={`w-5 h-5 rounded-full border-2 mt-11 lg:mt-[26px] ml-3 flex items-center justify-center
             ${isSelected 
